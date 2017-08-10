@@ -1,12 +1,11 @@
 import { Reactor } from 'nuclear-js'
-import { Provider, connect, nuclearMixin } from 'nuclear-js-react-addons'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 import * as stores from './stores'
-import { Counter } from './Page/Counter'
+import { App } from './Page/App'
 
-export const reactor = new Reactor({debug: true})
+const reactor = new Reactor({debug: true})
 reactor.registerStores(stores)
 
 if (module.hot) {
@@ -18,16 +17,7 @@ if (module.hot) {
 
 window.App = {
   reactor,
-  Counter,
 }
 
-class App extends React.Component {
-  render () {
-    return (
-      <Provider reactor={reactor}>
-        <Counter />
-      </Provider>)
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+const app = React.createElement(App, {reactor}, null)
+ReactDOM.render(app, document.getElementById('root'))

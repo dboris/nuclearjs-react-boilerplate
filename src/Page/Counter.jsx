@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'nuclear-js-react-addons'
 
-import { reactor } from '../main'
-
 export const Increment = 'Increment'
 export const Decrement = 'Decrement'
 
 export const actions = {
-  increment () { reactor.dispatch(Increment) },
-  decrement () { reactor.dispatch(Decrement) },
+  increment (reactor) { reactor.dispatch(Increment) },
+  decrement (reactor) { reactor.dispatch(Decrement) },
 }
 
 export const getters = {
@@ -17,12 +15,12 @@ export const getters = {
 
 class CounterPage extends React.Component {
   render () {
-    const {count} = this.props
+    const {count, reactor} = this.props
     return (
       <p>
-        <button onClick={actions.decrement}>-</button>
+        <button onClick={actions.decrement.bind(null, reactor)}>-</button>
         {count}
-        <button onClick={actions.increment}>+</button>
+        <button onClick={actions.increment.bind(null, reactor)}>+</button>
       </p>)
   }
 }
