@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'nuclear-js-react-addons'
 import { inc, dec } from '../util'
 
-export const Increment = 'Increment'
-export const Decrement = 'Decrement'
+export const Increment = 'Counter_Increment'
+export const Decrement = 'Counter_Decrement'
 
 export const actions = {
   increment (reactor) { reactor.dispatch(Increment) },
