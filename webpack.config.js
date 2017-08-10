@@ -13,7 +13,10 @@ module.exports = {
     publicPath: 'http://localhost:3000/dist/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      DEBUG: process.env.NODE_ENV !== 'production',
+    })
   ],
   module: {
     loaders: [
@@ -27,5 +30,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 }

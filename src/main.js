@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import { stores } from './stores'
 import { App } from './Page/App'
 
-const reactor = new Reactor({debug: true})
+const reactor = new Reactor({debug: DEBUG})
 reactor.registerStores(stores)
 
 if (module.hot) {
