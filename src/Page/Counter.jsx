@@ -52,7 +52,7 @@ class CounterPage extends React.Component {
         <span style={{color: countIsNegative ? 'red' : 'green'}}>{count}</span>
         <button onClick={actions.increment.bind(null, reactor)}>+</button>
         <button onClick={actions.times.bind(null, reactor, 2)}>x2</button>
-        <button onClick={actions.times.bind(null, reactor, 3)}>x3</button>
+        <button onClick={() => { reactor.dispatch(Times, 3) }}>x3</button>
       </p>)
   }
 }
