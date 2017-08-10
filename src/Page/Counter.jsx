@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'nuclear-js-react-addons'
+
 import { dispatch, dispatchPayload, inc, dec } from '../util'
+import { Counter as CounterModel } from '../Data/Counter'
 
 // Action types
 
@@ -19,22 +21,34 @@ export const actions = {
 // Model
 
 export const initialState = {
-  count: 0,
+  counter: new CounterModel(),
 }
 
 // Update
 
 export const reducers = [
-  [Increment, (state) => { return state.update('count', inc) }],
-  [Decrement, (state) => { return state.update('count', dec) }],
+  [Increment, (state) => {
+    return state.update('counter', (counter) => {
+      return counter.update('count', inc).update('updated', inc)
+    })
+  }],
+  [Decrement, (state) => {
+    return state.update('counter', (counter) => {
+      return counter.update('count', dec).update('updated', inc)
+    })
+  }],
   [Times, (state, factor) => {
-    return state.update('count', (n) => { return n * factor })
+    return state.update('counter', (counter) => {
+      return counter
+        .update('count', (count) => { return count * factor })
+        .update('updated', inc)
+    })
   }],
 ]
 
 // Getters
 
-const count = ['CounterStore', 'count']
+const count = ['CounterStore', 'counter', 'count']
 const countIsNegative = [count, (n) => { return n < 0 }]
 
 const gettersToProps = () => {

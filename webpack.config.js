@@ -16,7 +16,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       DEBUG: process.env.NODE_ENV !== 'production',
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
   ],
   module: {
     loaders: [
