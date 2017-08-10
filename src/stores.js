@@ -1,16 +1,18 @@
-import { Store, toImmutable, Immutable } from 'nuclear-js'
+import { Store, toImmutable } from 'nuclear-js'
 import * as Counter from './Page/Counter'
-import { inc, dec } from './util'
 
-export const CounterStore = Store({
-  getInitialState () {
-    return Immutable.Map({
-      count: 0,
-    })
-  },
+function createStore (page) {
+  return Store({
+    getInitialState () {
+      return toImmutable(page.initialState)
+    },
 
-  initialize () {
-    this.on(Counter.Increment, (state) => { return state.update('count', inc) })
-    this.on(Counter.Decrement, (state) => { return state.update('count', dec) })
-  }
-})
+    initialize () {
+      page.reducers.forEach(([action, reducer]) => { this.on(action, reducer) })
+    }
+  })
+}
+
+export const stores = {
+  CounterStore: createStore(Counter),
+}

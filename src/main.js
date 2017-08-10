@@ -2,7 +2,7 @@ import { Reactor } from 'nuclear-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import * as stores from './stores'
+import { stores } from './stores'
 import { App } from './Page/App'
 
 const reactor = new Reactor({debug: true})
