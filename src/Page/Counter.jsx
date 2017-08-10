@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'nuclear-js-react-addons'
-import { inc, dec } from '../util'
+import { dispatch, dispatchPayload, inc, dec } from '../util'
 
 // Action types
 
@@ -11,9 +11,9 @@ export const Times = 'Counter_Times'
 // Action creators
 
 export const actions = {
-  increment (reactor) { reactor.dispatch(Increment) },
-  decrement (reactor) { reactor.dispatch(Decrement) },
-  times (reactor, factor) { reactor.dispatch(Times, factor) },
+  increment: dispatch(Increment),
+  decrement: dispatch(Decrement),
+  times: dispatchPayload(Times),
 }
 
 // Model
