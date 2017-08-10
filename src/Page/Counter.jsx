@@ -29,27 +29,25 @@ export const reducers = [
 
 // Store queries
 
-export const getters = {
-  count: ['CounterStore', 'count'],
+const count = ['CounterStore', 'count']
+const countIsNegative = [count, (n) => { return n < 0 }]
+
+const gettersToProps = () => {
+  return {count, countIsNegative}
 }
 
 // View
 
 class CounterPage extends React.Component {
   render () {
-    const {count, reactor} = this.props
+    const {reactor, count, countIsNegative} = this.props
     return (
       <p>
         <button onClick={actions.decrement.bind(null, reactor)}>-</button>
-        {count}
+        <span style={{color: countIsNegative ? 'red' : 'green'}}>{count}</span>
         <button onClick={actions.increment.bind(null, reactor)}>+</button>
       </p>)
   }
-}
-
-const gettersToProps = () => {
-  const {count} = getters
-  return {count}
 }
 
 export const Counter = connect(gettersToProps)(CounterPage)
