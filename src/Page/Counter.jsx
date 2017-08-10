@@ -6,12 +6,14 @@ import { inc, dec } from '../util'
 
 export const Increment = 'Counter_Increment'
 export const Decrement = 'Counter_Decrement'
+export const Times = 'Counter_Times'
 
 // Action creators
 
 export const actions = {
   increment (reactor) { reactor.dispatch(Increment) },
   decrement (reactor) { reactor.dispatch(Decrement) },
+  times (reactor, factor) { reactor.dispatch(Times, factor) },
 }
 
 // Model
@@ -25,9 +27,12 @@ export const initialState = {
 export const reducers = [
   [Increment, (state) => { return state.update('count', inc) }],
   [Decrement, (state) => { return state.update('count', dec) }],
+  [Times, (state, factor) => {
+    return state.update('count', (n) => { return n * factor })
+  }],
 ]
 
-// Store queries
+// Getters
 
 const count = ['CounterStore', 'count']
 const countIsNegative = [count, (n) => { return n < 0 }]
@@ -46,6 +51,8 @@ class CounterPage extends React.Component {
         <button onClick={actions.decrement.bind(null, reactor)}>-</button>
         <span style={{color: countIsNegative ? 'red' : 'green'}}>{count}</span>
         <button onClick={actions.increment.bind(null, reactor)}>+</button>
+        <button onClick={actions.times.bind(null, reactor, 2)}>x2</button>
+        <button onClick={actions.times.bind(null, reactor, 3)}>x3</button>
       </p>)
   }
 }
