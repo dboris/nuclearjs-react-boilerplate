@@ -1,4 +1,6 @@
 import { Store, toImmutable } from 'nuclear-js'
+
+import * as App from './Page/App'
 import * as Counter from './Page/Counter'
 
 function createStore (page) {
@@ -14,5 +16,6 @@ function createStore (page) {
 }
 
 export const stores = {
+  AppStore: createStore(App),
   CounterStore: createStore(Counter),
 }

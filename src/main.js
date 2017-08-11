@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { stores } from './stores'
-import { App } from './Page/App'
+import { App, actions } from './Page/App'
 
 const reactor = new Reactor({debug: DEBUG})
 reactor.registerStores(stores)
@@ -15,9 +15,15 @@ if (module.hot) {
   })
 }
 
-window.App = {
-  reactor,
+window.App = {reactor}
+
+// Listen for back button, forward button, etc
+window.onpopstate = () => {
+  actions.updateRoute(reactor, window.location)
 }
+
+// Set initial route
+actions.updateRoute(reactor, window.location)
 
 const app = React.createElement(App, {reactor}, null)
 ReactDOM.render(app, document.getElementById('root'))
